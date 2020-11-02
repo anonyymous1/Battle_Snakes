@@ -1,0 +1,17 @@
+    body {
+    text-align: center;
+    background-color: rgb(43, 43, 43);
+    background-image: url('../Battle_Snakes/imgs/bgimage.jpg');
+    background-size: cover;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  #game {
+    margin-top: 80px;
+    position: relative;
+    align-self: center;
+    background-image: url('../Battle_Snakes/imgs/grass.png');
+    background-size: 350px;
+    width: 1000px;
+    height: 600px;
+  }

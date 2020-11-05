@@ -1,17 +1,18 @@
-    body {
-    text-align: center;
-    background-color: rgb(43, 43, 43);
-    background-image: url('../Battle_Snakes/imgs/bgimage.jpg');
+body {
+    background-image: url('.//img/bgimage.gif');
     background-size: cover;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
-  #game {
-    margin-top: 80px;
-    position: relative;
-    align-self: center;
-    background-image: url('../Battle_Snakes/imgs/grass.png');
-    background-size: 350px;
-    width: 1000px;
-    height: 600px;
-  }
+h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: whitesmoke;
+}
+
+#snake {
+    border: 2px solid black;
+    border-radius: 10px;
+}

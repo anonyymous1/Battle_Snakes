@@ -10,14 +10,6 @@ game.width = parseInt(width);
 
 const ctx = game.getContext('2d');
 
-function makeRandomColor(){
-    var c = '';
-    while (c.length < 7) {
-      c += (Math.random()).toString(16).substr(-6).substr(-1)
-    }
-    return '#'+c;
-  }
-``
 
 let snakeP1Array = [];
 
@@ -80,23 +72,22 @@ class Snake {
 }
 
 
-
 const snakeP1 = new Snake(100, 100, 'darkgreen', 30, 30);
-// const snakeP2 = new Snake(400, 400, 'darkred', 30, 30);
+snakeP1Array.push(snakeP1);
+const snakeP2 = new Snake(400, 400, 'purple', 30, 30);
 
 
 //---------------------------------------------------------------MOVEMENT FOR PLAYERS
 //Player One
 document.addEventListener('keyup', function(evt){
     if (evt.key === "w") {
-        debugger
-        playerUp(snakeP1); 
+        playerUp(snakeP1Array);
     } else if (evt.key === "a") {
-        playerLeft(snakeP1);  
+        playerLeft(snakeP1Array);  
     } else if (evt.key === "s") {
-        playerDown(snakeP1);   
+        playerDown(snakeP1Array);   
     } else if (evt.key === "d") {
-        playerRight(snakeP1);
+        playerRight(snakeP1Array);
     }
 })
 
@@ -116,28 +107,53 @@ document.addEventListener('keyup', function(evt){
 //---------------------------------------------------------------------------FUNCTION
 
 
-function playerUp(player){
-    player.y -= 1;
-    player.velX = 0;
-    player.velY = -1;
+function playerUp(snakeArray){
+    for (let i = 0; i < snakeArray.length; i++) {
+        let snakeBody = snakeArray[i];
+        console.log(snakeBody);
+        snakeBody.y -= 1;
+        snakeBody.velX = 0;
+        snakeBody.velY = -1;
+    }
 }
 
-function playerDown(player){
-    player.y += 1;
-    player.velX = 0;
-    player.velY = 1; 
+function playerDown(snakeArray){
+    for (let i = 0; i < snakeArray.length; i++) {
+        let snakeBody = snakeArray[i];
+        console.log(snakeBody);
+        snakeBody.y += 1;
+        snakeBody.velX = 0;
+        snakeBody.velY = 1;
+    }
+    // player.y += 1;
+    // player.velX = 0;
+    // player.velY = 1; 
 }
 
-function playerLeft(player){
-    player.x -= 1;
-    player.velX = -1;
-    player.velY = 0;  
+function playerLeft(snakeArray){
+    for (let i = 0; i < snakeArray.length; i++) {
+        let snakeBody = snakeArray[i];
+        console.log(snakeBody);
+        snakeBody.x -= 1;
+        snakeBody.velX = -1;
+        snakeBody.velY = 0;
+    }
+    // player.x -= 1;
+    // player.velX = -1;
+    // player.velY = 0;  
 }
 
-function playerRight(player){
-    player.x += 1;
-    player.velX = 1;
-    player.velY = 0; 
+function playerRight(snakeArray){
+    for (let i = 0; i < snakeArray.length; i++) {
+        let snakeBody = snakeArray[i];
+        console.log(snakeBody);
+        snakeBody.x += 1;
+        snakeBody.velX = 1;
+        snakeBody.velY = 0;
+    }
+    // player.x += 1;
+    // player.velX = 1;
+    // player.velY = 0; 
 }
 
 
@@ -162,30 +178,52 @@ function appleEaten() {
         snakeP1.y < apple.y + apple.height ) { 
         
         apple.alive = false;
-        let snakeBody = new Snake(100, 100, 20, 20, 'blue');
-        console.log(snakeP1Array);
-        snakeP1Array.push(snakeBody);
-
+        addTail();
         newApple(apple);
-        apple = new Food(random_x, random_y, 15, 15, 'blue');
+        apple = new Food(random_x, random_y, 15, 15, 'white');
     }
 }  
 
 let apple = new Food(150, 100, 15, 15, 'red');
-//---------------------------------------------------------------------------FRAMES FUNCTION
+
+function addTail() {
+    let snakeBody = new Snake(100, 100, 'lightgreen', 20, 20);
+    snakeP1Array.push(snakeBody);
+}
+
+
+
+
 function frames(){
     ctx.clearRect(0, 0, game.width, game.height)
+// console.log(snakeP1Array);
+    for (let i = 0; i < snakeP1Array.length; i++) {
+        let snakeBody = snakeP1Array[i];
+        console.log(snakeBody);
+        snakeBody.render();
+        snakeBody.x += snakeBody.velX;
+        snakeBody.y += snakeBody.velY;
 
-    for (let i = (snakeP1Array.length - 1); i > 0; i--){
-        snakeP1Array[i].x = snakeP1Array[i - 1].x;
-        snakeP1Array[i].y = snakeP1Array[i - 1].y;   
-        snakeP1Array[i].render();  
     }
 
+    // for (let i = (snakeP1Array.length - 1); i > 0; i--){
+    //     snakeP1Array[i].x = snakeP1Array[i - 1].x;
+    //     snakeP1Array[i].y = snakeP1Array[i - 1].y;   
+    //     snakeP1Array[i].render();  
+    // }
+
+    // for ( let i = 5; i < snakeP1Array.length; i++){
+    //     if (snakeP1Array[0].x === snakeP1Array[i].x &&
+    //         snakeP1Array[0].y === snakeP1Array[i].y ) {
+    //         }
+    //     }
+
     //Player One
-    snakeP1Array = [];
-    snakeP1Array.push(snakeP1);
+    // snakeP1Array = [];
+    // snakeP1Array.push(snakeP1);
     snakeP1.render();
+    
+    
     outOfBounds(snakeP1)
     apple.render();
     snakeP1.x += snakeP1.velX;
@@ -193,11 +231,11 @@ function frames(){
     
     appleEaten();
     
-    //Player Two
-    //   snakeP2.render()
-    // outOfBounds(snakeP2)
-    // snakeP2.x += snakeP2.velX;
-    // snakeP2.y += snakeP2.velY;  
+    // Player Two
+    snakeP2.render()
+    outOfBounds(snakeP2)
+    snakeP2.x += snakeP2.velX;
+    snakeP2.y += snakeP2.velY;  
 }
 
 let fps = 120;

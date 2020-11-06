@@ -15,9 +15,6 @@ let snakeP1Array = [];
 
 //----------------------------------------------------------------EVENT LISTENERS
 
-// const playTheGame = document.querySelector('#status').addEventListener('click', function(){
-//     add(snakeP1);
-// })
 
 //----------------------------------------------------------------SNAKE CREATOR
 
@@ -52,22 +49,6 @@ class Snake {
             ctx.fillStyle = this.color;
             ctx.fillRect(this.x, this.y, this.width, this.height)   
         }
-        this.update = function() {
-            this.x += this.speedX;//this is for speed
-            this.y += this.speedY;// this is for speed
-        if (this.x > game.height) {
-            this.x = 0;
-        } 
-        if (this. y > game.width) {
-            this.y = 0;
-        } 
-        if (this.x < 0) {
-            this.x = game.width
-        } 
-        if (this.y < 0) {
-            this.y = game.height
-        }    
-        }  
     }   
 }
 
@@ -92,17 +73,17 @@ document.addEventListener('keyup', function(evt){
 })
 
 //Player Two
-document.addEventListener('keyup', function(evt){
-    if (evt.key === "ArrowUp") {
-        playerUp(snakeP2); 
-    } else if (evt.key === "ArrowLeft") {
-        playerLeft(snakeP2);  
-    } else if (evt.key === "ArrowDown") {
-        playerDown(snakeP2);    
-    } else if (evt.key === "ArrowRight") {
-        playerRight(snakeP2);
-    }
-})
+// document.addEventListener('keyup', function(evt){
+//     if (evt.key === "ArrowUp") {
+//         playerUp(snakeP2); 
+//     } else if (evt.key === "ArrowLeft") {
+//         playerLeft(snakeP2);  
+//     } else if (evt.key === "ArrowDown") {
+//         playerDown(snakeP2);    
+//     } else if (evt.key === "ArrowRight") {
+//         playerRight(snakeP2);
+//     }
+// })
 
 //---------------------------------------------------------------------------FUNCTION
 
@@ -110,20 +91,21 @@ document.addEventListener('keyup', function(evt){
 function playerUp(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
-        console.log(snakeBody);
         snakeBody.y -= 1;
         snakeBody.velX = 0;
         snakeBody.velY = -1;
+        // snakeArray.pop(snakeArray.length[snakeP1Array.length - 1])
+        // snakeArray.push(snakeBody);
     }
 }
 
 function playerDown(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
-        console.log(snakeBody);
         snakeBody.y += 1;
         snakeBody.velX = 0;
         snakeBody.velY = 1;
+          
     }
     // player.y += 1;
     // player.velX = 0;
@@ -133,7 +115,6 @@ function playerDown(snakeArray){
 function playerLeft(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
-        console.log(snakeBody);
         snakeBody.x -= 1;
         snakeBody.velX = -1;
         snakeBody.velY = 0;
@@ -142,11 +123,9 @@ function playerLeft(snakeArray){
     // player.velX = -1;
     // player.velY = 0;  
 }
-
 function playerRight(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
-        console.log(snakeBody);
         snakeBody.x += 1;
         snakeBody.velX = 1;
         snakeBody.velY = 0;
@@ -186,59 +165,54 @@ function appleEaten() {
 
 let apple = new Food(150, 100, 15, 15, 'red');
 
+
 function addTail() {
-    // let snakeBody = new Snake(100, 100, 'lightgreen', 20, 20);
     let snakeTail = snakeP1Array[snakeP1Array.length - 1];
-    let snakeBody = new Snake(snakeTail.x + 5, snakeTail.y + 5, 'lightgreen', 20, 20);
+    let snakeBody = new Snake(snakeTail.x-30, snakeTail.y, 'lightgreen', 30, 30);
+    snakeBody.velX = snakeTail.velX;
+    snakeBody.velY = snakeTail.velY;
     snakeP1Array.push(snakeBody);
 }
 
 
 
-
 function frames(){
     ctx.clearRect(0, 0, game.width, game.height)
-// console.log(snakeP1Array);
+
     for (let i = 0; i < snakeP1Array.length; i++) {
         let snakeBody = snakeP1Array[i];
-        console.log(snakeBody);
+        // console.log(snakeBody);
         snakeBody.render();
         snakeBody.x += snakeBody.velX;
         snakeBody.y += snakeBody.velY;
-
     }
+    
 
-    // for (let i = (snakeP1Array.length - 1); i > 0; i--){
-    //     snakeP1Array[i].x = snakeP1Array[i - 1].x;
-    //     snakeP1Array[i].y = snakeP1Array[i - 1].y;   
-    //     snakeP1Array[i].render();  
-    // }
+    // for (let i = (snakeP1Array.length - 1); i > 0; i--){ // i is always going to start at 0
+    //     snakeP1Array[i].x = snakeP1Array[i - 1].x; //put its in different place in the array 
+    //     snakeP1Array[i].y = snakeP1Array[i - 1].y; // minus    
+     
+    //   } 
 
-    // for ( let i = 5; i < snakeP1Array.length; i++){
-    //     if (snakeP1Array[0].x === snakeP1Array[i].x &&
-    //         snakeP1Array[0].y === snakeP1Array[i].y ) {
-    //         }
-    //     }
 
-    //Player One
-    // snakeP1Array = [];
-    // snakeP1Array.push(snakeP1);
+
     snakeP1.render();
     
     
     outOfBounds(snakeP1)
     apple.render();
-    snakeP1.x += snakeP1.velX;
-    snakeP1.y += snakeP1.velY;
+    // snakeP1.x += snakeP1.velX;
+    // snakeP1.y += snakeP1.velY;
     
     appleEaten();
-    
     // Player Two
-    snakeP2.render()
-    outOfBounds(snakeP2)
-    snakeP2.x += snakeP2.velX;
-    snakeP2.y += snakeP2.velY;  
+    // snakeP2.render()
+    // outOfBounds(snakeP2)
+    // snakeP2.x += snakeP2.velX;
+    // snakeP2.y += snakeP2.velY;  
 }
 
-let fps = 120;
-setInterval(frames,1000 / fps)
+document.addEventListener('DOMContentLoaded', function(){
+    let fps = 120;
+    setInterval(frames,1000 / fps)
+});

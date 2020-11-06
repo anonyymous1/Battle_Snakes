@@ -1,0 +1,194 @@
+//------------------------------------------------------------GAME CANVAS STARTERS
+
+const game = document.querySelector('#game');
+const computedStyle = getComputedStyle(game);
+
+const height = computedStyle.height;
+const width = computedStyle.width;
+game.height = parseInt(height); 
+game.width = parseInt(width);
+
+const ctx = game.getContext('2d');
+
+let snakeP1Array = [];
+
+//----------------------------------------------------------------EVENT LISTENERS
+
+// const playTheGame = document.querySelector('#status').addEventListener('click', function(){
+//     add(snakeP1);
+// })
+
+//----------------------------------------------------------------SNAKE CREATOR
+
+function Food (x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.total = 1;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.alive = true;
+    this.render = function() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
+function newApple() {
+    random_x = Math.floor(Math.random() * (game.height - 15)); //need to take the height number
+    random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number   
+}   
+
+class Snake {
+    constructor(x, y, color, width, height) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.width = width;
+        this.height = height;
+        this.velX = 0;
+        this.velY = 0;
+        this.render = function() {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height)   
+        }
+        this.update = function() {
+            this.x += this.speedX;//this is for speed
+            this.y += this.speedY;// this is for speed
+        if (this.x > game.height) {
+            this.x = 0;
+        } 
+        if (this. y > game.width) {
+            this.y = 0;
+        } 
+        if (this.x < 0) {
+            this.x = game.width
+        } 
+        if (this.y < 0) {
+            this.y = game.height
+        }    
+        }  
+    }   
+}
+
+
+
+const snakeP1 = new Snake(100, 100, 'darkgreen', 30, 30);
+// const snakeP2 = new Snake(400, 400, 'darkred', 30, 30);
+
+
+//---------------------------------------------------------------MOVEMENT FOR PLAYERS
+//Player One
+document.addEventListener('keyup', function(evt){
+    if (evt.key === "w") {
+        debugger
+        playerUp(snakeP1); 
+    } else if (evt.key === "a") {
+        playerLeft(snakeP1);  
+    } else if (evt.key === "s") {
+        playerDown(snakeP1);   
+    } else if (evt.key === "d") {
+        playerRight(snakeP1);
+    }
+})
+
+//Player Two
+document.addEventListener('keyup', function(evt){
+    if (evt.key === "ArrowUp") {
+        playerUp(snakeP2); 
+    } else if (evt.key === "ArrowLeft") {
+        playerLeft(snakeP2);  
+    } else if (evt.key === "ArrowDown") {
+        playerDown(snakeP2);    
+    } else if (evt.key === "ArrowRight") {
+        playerRight(snakeP2);
+    }
+})
+
+//---------------------------------------------------------------------------FUNCTION
+
+
+function playerUp(player){
+    player.y -= 1;
+    player.velX = 0;
+    player.velY = -1;
+}
+
+function playerDown(player){
+    player.y += 1;
+    player.velX = 0;
+    player.velY = 1; 
+}
+
+function playerLeft(player){
+    player.x -= 1;
+    player.velX = -1;
+    player.velY = 0;  
+}
+
+function playerRight(player){
+    player.x += 1;
+    player.velX = 1;
+    player.velY = 0; 
+}
+
+
+function outOfBounds(player) {
+    if (player.x > game.width) {
+        player.x = 0;
+    }
+    if (player.x <= -1) {
+        player.x = game.width;
+    }
+    if (player.y > game.height) {
+        player.y = 0;
+    }
+    if (player.y <= -1) {
+        player.y = game.height;
+    }
+}
+const detectHit = () => {
+    if (snakeP1.x + snakeP1.width > apple.x &&
+        snakeP1.x < apple.x + apple.width &&
+        snakeP1.y + snakeP1.height > apple.y &&
+        snakeP1.y < apple.y + apple.height ) { 
+        
+        apple.alive = false;
+        let snakeBody = new Snake(100, 100, 20, 20, 'blue');
+        console.log(snakeP1Array);
+        snakeP1Array.push(snakeBody);
+
+        newApple(apple);
+        apple = new Food(random_x, random_y, 15, 15, 'red');
+    }
+}  
+let apple = new Food(300, 300, 15, 15, 'red');
+//---------------------------------------------------------------------------FRAMES FUNCTION
+function frames(){
+    ctx.clearRect(0, 0, game.width, game.height)
+
+    for (let i = (snakeP1Array.length - 1); i > 0; i--){
+        snakeP1Array[i].x = snakeP1Array[i - 1].x;
+        snakeP1Array[i].y = snakeP1Array[i - 1].y;   
+        snakeP1Array[i].render();  
+    }
+
+    //Player One
+    snakeP1Array = [];
+    snakeP1Array.push(snakeP1);
+    snakeP1.render();
+    outOfBounds(snakeP1)
+    apple.render();
+    snakeP1.x += snakeP1.velX;
+    snakeP1.y += snakeP1.velY;
+    
+    detectHit();
+    
+    //Player Two
+    //   snakeP2.render()
+    // outOfBounds(snakeP2)
+    // snakeP2.x += snakeP2.velX;
+    // snakeP2.y += snakeP2.velY;  
+}
+
+let fps = 120;
+setInterval(frames,1000 / fps)

@@ -1,84 +1,204 @@
-const gameScreen = document.getElementById('snake');
-const ctx = gameScreen.getContext('2d');
+//------------------------------------------------------------GAME CANVAS STARTERS
 
-//This sets the unit
-let unit = 32;
+const game = document.querySelector('#game');
+const computedStyle = getComputedStyle(game);
 
-//This code is to load the images
-const grass = new Image();
-grass.src = 'img/grass.png';
+const height = computedStyle.height;
+const width = computedStyle.width;
+game.height = parseInt(height); 
+game.width = parseInt(width);
 
-const apple = new Image();
-apple.src = 'img/apple.png';
+const ctx = game.getContext('2d');
 
-// Player 1 and Player 2 Snakes
-let snake1 = [];
-    snake1[0] = {
-        x: 10*unit,
-        y: 10*unit
+function makeRandomColor(){
+    var c = '';
+    while (c.length < 7) {
+      c += (Math.random()).toString(16).substr(-6).substr(-1)
     }
+    return '#'+c;
+  }
+``
 
-// let snake2 = [];
-//     snake2[0] = {
-//         x: 16*unit,
-//         y: 16*unit
-//     }
+let snakeP1Array = [];
 
-// Random spawn for food Food
-let food = {
-    x: Math.floor(Math.random()*17+1) * unit,
-    y: Math.floor(Math.random()*15+3) * unit
+//----------------------------------------------------------------EVENT LISTENERS
+
+// const playTheGame = document.querySelector('#status').addEventListener('click', function(){
+//     add(snakeP1);
+// })
+
+//----------------------------------------------------------------SNAKE CREATOR
+
+function Food (x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.total = 1;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.alive = true;
+    this.render = function() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
 }
+function newApple() {
+    random_x = Math.floor(Math.random() * (game.height - 15)); //need to take the height number
+    random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number   
+}   
 
-    
-function refreshRate(){
-
-    ctx.drawImage(grass, 0, 0);
-
-for( let i = 0; i < snake1.length ; i++){
-    ctx.fillStyle = ( i == 0 )? 'purple' : 'white';
-    ctx.fillRect(snake1[i].x,snake1[i].y,unit, unit);
-
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(snake1[i].x,snake1[i].y,unit, unit);
-    }
-
-// for (let i =0; i <snake2.length;i++) {
-//     ctx.fillStyle = (i==0)? 'blue' : 'white';
-//     ctx.fillRect(snake2[i].x,snake2[i].y,unit, unit);
-
-//     ctx.strokeStyle = 'orange';
-//     ctx.strokeRect(snake2[i].x,snake2[i].y,unit, unit);
-//     }
-
-ctx.drawImage(apple, food.x, food.y );
-
-let snake1X = snake1[0].x;
-let snake1Y = snake1[0].y;
-
-snake1.pop();
-
-document.addEventListener('keydown', direction);
-
-function direction(event){
-        if (event.key === "w") {
-            snake1Y -= unit;
-        } else if (event.key === 's') {
-            d = 'down';
-        } else if (event.key === 'a') {
-            d = 'left';
-        } else if (event.key === 'd') {
-            d = "right"
+class Snake {
+    constructor(x, y, color, width, height) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.width = width;
+        this.height = height;
+        this.velX = 0;
+        this.velY = 0;
+        this.render = function() {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height)   
         }
+        this.update = function() {
+            this.x += this.speedX;//this is for speed
+            this.y += this.speedY;// this is for speed
+        if (this.x > game.height) {
+            this.x = 0;
+        } 
+        if (this. y > game.width) {
+            this.y = 0;
+        } 
+        if (this.x < 0) {
+            this.x = game.width
+        } 
+        if (this.y < 0) {
+            this.y = game.height
+        }    
+        }  
+    }   
 }
 
-let newHead = {
-    x : snake1X,
-    y : snake1Y
+
+
+const snakeP1 = new Snake(100, 100, 'darkgreen', 30, 30);
+// const snakeP2 = new Snake(400, 400, 'darkred', 30, 30);
+
+
+//---------------------------------------------------------------MOVEMENT FOR PLAYERS
+//Player One
+document.addEventListener('keyup', function(evt){
+    if (evt.key === "w") {
+        debugger
+        playerUp(snakeP1); 
+    } else if (evt.key === "a") {
+        playerLeft(snakeP1);  
+    } else if (evt.key === "s") {
+        playerDown(snakeP1);   
+    } else if (evt.key === "d") {
+        playerRight(snakeP1);
+    }
+})
+
+//Player Two
+document.addEventListener('keyup', function(evt){
+    if (evt.key === "ArrowUp") {
+        playerUp(snakeP2); 
+    } else if (evt.key === "ArrowLeft") {
+        playerLeft(snakeP2);  
+    } else if (evt.key === "ArrowDown") {
+        playerDown(snakeP2);    
+    } else if (evt.key === "ArrowRight") {
+        playerRight(snakeP2);
+    }
+})
+
+//---------------------------------------------------------------------------FUNCTION
+
+
+function playerUp(player){
+    player.y -= 1;
+    player.velX = 0;
+    player.velY = -1;
 }
-snake1.unshift(newHead);
 
+function playerDown(player){
+    player.y += 1;
+    player.velX = 0;
+    player.velY = 1; 
+}
+
+function playerLeft(player){
+    player.x -= 1;
+    player.velX = -1;
+    player.velY = 0;  
+}
+
+function playerRight(player){
+    player.x += 1;
+    player.velX = 1;
+    player.velY = 0; 
 }
 
 
-let game = setInterval(refreshRate, 100)
+function outOfBounds(player) {
+    if (player.x > game.width) {
+        player.x = 0;
+    }
+    if (player.x <= -1) {
+        player.x = game.width;
+    }
+    if (player.y > game.height) {
+        player.y = 0;
+    }
+    if (player.y <= -1) {
+        player.y = game.height;
+    }
+}
+function appleEaten() {
+    if (snakeP1.x + snakeP1.width > apple.x &&
+        snakeP1.x < apple.x + apple.width &&
+        snakeP1.y + snakeP1.height > apple.y &&
+        snakeP1.y < apple.y + apple.height ) { 
+        
+        apple.alive = false;
+        let snakeBody = new Snake(100, 100, 20, 20, 'blue');
+        console.log(snakeP1Array);
+        snakeP1Array.push(snakeBody);
+
+        newApple(apple);
+        apple = new Food(random_x, random_y, 15, 15, 'blue');
+    }
+}  
+
+let apple = new Food(150, 100, 15, 15, 'red');
+//---------------------------------------------------------------------------FRAMES FUNCTION
+function frames(){
+    ctx.clearRect(0, 0, game.width, game.height)
+
+    for (let i = (snakeP1Array.length - 1); i > 0; i--){
+        snakeP1Array[i].x = snakeP1Array[i - 1].x;
+        snakeP1Array[i].y = snakeP1Array[i - 1].y;   
+        snakeP1Array[i].render();  
+    }
+
+    //Player One
+    snakeP1Array = [];
+    snakeP1Array.push(snakeP1);
+    snakeP1.render();
+    outOfBounds(snakeP1)
+    apple.render();
+    snakeP1.x += snakeP1.velX;
+    snakeP1.y += snakeP1.velY;
+    
+    appleEaten();
+    
+    //Player Two
+    //   snakeP2.render()
+    // outOfBounds(snakeP2)
+    // snakeP2.x += snakeP2.velX;
+    // snakeP2.y += snakeP2.velY;  
+}
+
+let fps = 120;
+setInterval(frames,1000 / fps)

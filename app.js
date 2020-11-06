@@ -187,7 +187,9 @@ function appleEaten() {
 let apple = new Food(150, 100, 15, 15, 'red');
 
 function addTail() {
-    let snakeBody = new Snake(100, 100, 'lightgreen', 20, 20);
+    // let snakeBody = new Snake(100, 100, 'lightgreen', 20, 20);
+    let snakeTail = snakeP1Array[snakeP1Array.length - 1];
+    let snakeBody = new Snake(snakeTail.x + 5, snakeTail.y + 5, 'lightgreen', 20, 20);
     snakeP1Array.push(snakeBody);
 }
 

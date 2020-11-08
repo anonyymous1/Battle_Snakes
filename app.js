@@ -74,6 +74,9 @@ document.addEventListener('keyup', function(evt){
 function playerUp(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
+        if (snakeBody.velX === 0 && snakeBody.velY === 1) {
+            return;
+        } else
         snakeBody.y -= 1;
         snakeBody.velX = 0;
         snakeBody.velY = -1;
@@ -83,15 +86,22 @@ function playerUp(snakeArray){
 function playerDown(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
+        if (snakeBody.velX === 0 && snakeBody.velY === -1) {
+            return;
+        } else
         snakeBody.y += 1;
         snakeBody.velX = 0;
-        snakeBody.velY = 1;    
+        snakeBody.velY = 1;
     }
+    
 }
 
 function playerLeft(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
+    if (snakeBody.velX === 1 && snakeBody.velY === 0) {
+        return;
+    } else
         snakeBody.x -= 1;
         snakeBody.velX = -1;
         snakeBody.velY = 0;
@@ -101,13 +111,15 @@ function playerLeft(snakeArray){
 function playerRight(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
         let snakeBody = snakeArray[i];
+        if (snakeBody.velX === -1 && snakeBody.velY === 0) {
+            return;
+        } else
         snakeBody.x += 1;
         snakeBody.velX = 1;
         snakeBody.velY = 0;
     }
 }
 
-//TA QUESTIONS
 function outOfBounds(player) {
     if (player.x + 30 > game.width ||
         player.x <= -1 ||
@@ -116,8 +128,7 @@ function outOfBounds(player) {
         const a = document.getElementById("lose");
         a.style.display = "block";
         clearInterval(frames());
-
-    }
+    } 
 }
     
 function appleEaten() {
@@ -133,7 +144,6 @@ function appleEaten() {
     }
 }  
 
-//TA QUESTIONS
 function addTail() {
     let snakeTail = snakeP1Array[snakeP1Array.length - 1];
     let snakeBody = new Snake(snakeTail.x-30, snakeTail.y, 'lightgreen', 30, 30);

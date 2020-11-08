@@ -3,10 +3,10 @@ Project One: Creating my game!
 
 # Table of Contents
 
-1. [About](#About)
-2. [Challenges](#Challenges)
-3. [Code](#Peak)
-4. [Future Updates](#Things)
+1. [About](#About Battle Snakes & How to play)
+2. [Challenges](#Challenges that came my way.)
+3. [Code](#Peak at my Code)
+4. [Future Updates](#Things I want to add in the future)
 
 ## About Battle Snakes & How to play
 

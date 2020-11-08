@@ -3,10 +3,11 @@ Project One: Creating my game!
 
 # Table of Contents
 
-1. [About](#About Battle Snakes & How to play)
-2. [Challenges](#Challenges that came my way.)
-3. [Code](#Peak at my Code)
-4. [Future Updates](#Things I want to add in the future)
+1. [About](#About)
+2. [Challenges](#Challenges)
+3. [Functions](#Functions)
+4. [Code](#Peak)
+5. [Future Updates](#Things)
 
 ## About Battle Snakes & How to play
 
@@ -17,7 +18,14 @@ I wanted to create a game that could be played by two people on the same keyboar
 
 Styling the game came easy. Coding on the other hand wrecked my brain. The movemnt of the snake came easy and random functions to spawn the items came quick. The issues I had mainly revolved around the movement of the snakesbody and body functions
 
-### Peak at my Code
+### Functions
+| Functions | Description |
+| ----------- | ----------- |
+| `function()` | Function description. |
+| `function()` | Function description. |
+| `function()` | Function description. |
+
+## Peak at my Code
 
 ```html
 

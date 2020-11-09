@@ -7,6 +7,7 @@ const width = computedStyle.width;
 game.height = parseInt(height); 
 game.width = parseInt(width);
 
+
 let score = 0;
 let fps = 120;
 let snakeP1Array = [];
@@ -93,7 +94,6 @@ function playerDown(snakeArray){
         snakeBody.velX = 0;
         snakeBody.velY = 1;
     }
-    
 }
 
 function playerLeft(snakeArray){
@@ -140,7 +140,7 @@ function appleEaten() {
         apple.alive = false;
         addTail();
         newApple(apple);
-        apple = new Food(random_x, random_y, 15, 15, 'white');
+        apple = new Food(random_x, random_y, 15, 15, 'red');
     }
 }  
 
@@ -151,6 +151,21 @@ function addTail() {
     snakeBody.velY = snakeTail.velY;
     snakeP1Array.push(snakeBody);
 }
+
+// function directionChange() {
+//     for (let i = (snakeP1Array.length - 1); i > 0; i--){ // i is always going to start at 0
+//         snakeP1Array[i].x = snakeP1Array[i - 1].x; //put its in different place in the array 
+//         snakeP1Array[i].y = snakeP1Array[i - 1].y; // minus    
+//       }
+    
+    // if (snakeBody.velX === 0 && snakeBody.velY === -1) {
+    //     const newBeg = snakeArray.pop();
+    //     console.log(newBeg);
+    //     newBeg.snakeTail.y = snakeTail.y - 30;
+    //     newBeg.snakeTail.x = snakeTail.x;
+    //     snakeArray.splice(1, 0, newBeg)
+    // }
+// }
 
 function playGame() {
     const a = document.getElementById("container");
@@ -192,6 +207,7 @@ function frames(){
     outOfBounds(snakeP1)
     apple.render();
     appleEaten();
+    directionChange();
     
 
 }

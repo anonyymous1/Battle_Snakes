@@ -7,6 +7,7 @@ const width = computedStyle.width;
 game.height = parseInt(height); 
 game.width = parseInt(width);
 
+var snd = new Audio("../Battle_Snakes/img/melodyloops-preview.mp3");
 
 let score = 0;
 let fps = 120;
@@ -93,6 +94,7 @@ function playerDown(snakeArray){
         snakeBody.y += 1;
         snakeBody.velX = 0;
         snakeBody.velY = 1;
+        changeDirection();
     }
     
 }
@@ -121,6 +123,12 @@ function playerRight(snakeArray){
     }
 }
 
+function changeDirection() {
+    newBody = snakeP1Array[snakeP1Array.length - 1]
+    console.log(newBody);
+    snakeP1Array.splice(-1, 1, newBody)
+}
+
 function outOfBounds(player) {
     if (player.x + 30 > game.width ||
         player.x <= -1 ||
@@ -128,7 +136,7 @@ function outOfBounds(player) {
         player.y <= -1) {
         const a = document.getElementById("lose");
         a.style.display = "block";
-        clearInterval(frames());
+        clearInterval(autoPlay);
     } 
 }
     
@@ -154,6 +162,7 @@ function addTail() {
 }
 
 function playGame() {
+    snd.play();
     const a = document.getElementById("container");
     a.style.display = "block";
     const b = document.getElementById("reset");
@@ -197,12 +206,9 @@ function frames(){
 
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+const autoPlay = document.addEventListener('DOMContentLoaded', function(){
     setInterval(frames,1000 / fps)
 });
-
-
-
 
 
 

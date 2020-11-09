@@ -3,7 +3,7 @@
 body {
   text-align: center;
   background-color: rgb(43, 43, 43);
-  background-image: url('../Battle_Snakes/img/bgimage2.jpeg');
+  background-image: url('https://i.imgur.com/cKGGRUo.jpg');
   background-size: cover;
   font-family: 'Teko', sans-serif;
 }
@@ -12,7 +12,7 @@ body {
   margin-top: 40px;
   position: relative;
   align-self: center;
-  background-image: url('../Battle_Snakes/img/grass.png');
+  background-image: url('https://i.imgur.com/8RLB7Ck.png');
   background-size: 350px;
   width: 500px;
   height: 500px;

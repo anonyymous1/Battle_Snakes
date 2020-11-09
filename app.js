@@ -50,8 +50,8 @@ class Snake {
 }
 
 //----------------------------------------------------------------CALLING FOR SNAKE & FOOD
-let apple = new Food(150, 100, 15, 15, 'red');
-const snakeP1 = new Snake(100, 100, 'darkgreen', 30, 30);
+let apple = new Food(150, 100, 10, 10, 'red');
+const snakeP1 = new Snake(100, 100, 'darkgreen', 20, 20);
 snakeP1Array.push(snakeP1);
 
 
@@ -94,6 +94,7 @@ function playerDown(snakeArray){
         snakeBody.velX = 0;
         snakeBody.velY = 1;
     }
+    
 }
 
 function playerLeft(snakeArray){
@@ -140,32 +141,17 @@ function appleEaten() {
         apple.alive = false;
         addTail();
         newApple(apple);
-        apple = new Food(random_x, random_y, 15, 15, 'red');
+        apple = new Food(random_x, random_y, 10, 10, 'red');
     }
 }  
 
 function addTail() {
     let snakeTail = snakeP1Array[snakeP1Array.length - 1];
-    let snakeBody = new Snake(snakeTail.x-30, snakeTail.y, 'lightgreen', 30, 30);
+    let snakeBody = new Snake(snakeTail.x-20, snakeTail.y, 'lightgreen', 20, 20);
     snakeBody.velX = snakeTail.velX;
     snakeBody.velY = snakeTail.velY;
     snakeP1Array.push(snakeBody);
 }
-
-// function directionChange() {
-//     for (let i = (snakeP1Array.length - 1); i > 0; i--){ // i is always going to start at 0
-//         snakeP1Array[i].x = snakeP1Array[i - 1].x; //put its in different place in the array 
-//         snakeP1Array[i].y = snakeP1Array[i - 1].y; // minus    
-//       }
-    
-    // if (snakeBody.velX === 0 && snakeBody.velY === -1) {
-    //     const newBeg = snakeArray.pop();
-    //     console.log(newBeg);
-    //     newBeg.snakeTail.y = snakeTail.y - 30;
-    //     newBeg.snakeTail.x = snakeTail.x;
-    //     snakeArray.splice(1, 0, newBeg)
-    // }
-// }
 
 function playGame() {
     const a = document.getElementById("container");
@@ -181,9 +167,9 @@ function playGame() {
     const f = document.getElementById("score");
     f.style.display = "inline";
     const g = document.getElementById("logo");
-    g.style.marginTop = "0px";
-    const h = document.getElementById("logo");
-    h.style.width = "300px";
+    g.style.marginTop = "5px";
+    g.style.marginBottom = "15px";
+    g.style.width = "200px";
 
 }
 
@@ -207,7 +193,6 @@ function frames(){
     outOfBounds(snakeP1)
     apple.render();
     appleEaten();
-    directionChange();
     
 
 }

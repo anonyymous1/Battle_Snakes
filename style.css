@@ -3,7 +3,7 @@
 body {
   text-align: center;
   background-color: rgb(43, 43, 43);
-  background-image: url('https://i.imgur.com/cKGGRUo.jpg');
+  background-image: url('../Battle_Snakes/img/bgimage2.jpeg');
   background-size: cover;
   font-family: 'Teko', sans-serif;
 }
@@ -12,10 +12,10 @@ body {
   margin-top: 40px;
   position: relative;
   align-self: center;
-  background-image: url('https://i.imgur.com/8RLB7Ck.png');
+  background-image: url('../Battle_Snakes/img/grass.png');
   background-size: 350px;
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   border: 3px black solid;
   border-radius: 10px;
 }
@@ -32,16 +32,16 @@ h4 {
 }
 
 h5 {
-  font-size: 25px;
+  font-size: 15px;
 }
 
 img {
-  width: 700px;
-  margin-top: 270px;
-  margin-bottom: 25px;
+  width: 550px;
+  margin-top: 210px;
+  margin-bottom: 20px;
 }
 
-#container, #reset, #scoreTitle, #score, #lose, #dummy{
+#container, #reset, #scoreTitle, #score, #lose{
   display: none;
 }
 

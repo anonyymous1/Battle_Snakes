@@ -2,10 +2,8 @@
 Project One: Creating my game!
 
 ![Preview1](https://i.imgur.com/e65eCiM.png)
-Format: ![Alt Text](https://i.imgur.com/e65eCiM.png)
 
 ![Preview2](https://i.imgur.com/cSW9Ykz.png)
-Format: ![Alt Text](https://i.imgur.com/cSW9Ykz.png)
 
 # Table of Contents
 

@@ -268,7 +268,7 @@ function playGame() {
     f.style.display = "inline";
     const g = document.getElementById("logo");
     g.style.marginTop = "5px";
-    g.style.marginBottom = "15px";
+    g.style.marginBottom = "10px";
     g.style.width = "200px";
 
 }

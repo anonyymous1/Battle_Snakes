@@ -9,7 +9,7 @@ body {
 }
 
 #game {
-  margin-top: 40px;
+  margin-top: 10px;
   position: relative;
   align-self: center;
   background-image: url('https://i.imgur.com/8RLB7Ck.png');
@@ -37,8 +37,8 @@ h5 {
 
 img {
   width: 400px;
-  margin-top: 180px;
-  margin-bottom: 20px;
+  margin-top: 150px;
+  margin-bottom: 10px;
 }
 
 #container, #reset, #scoreTitle, #score, #lose{
@@ -74,7 +74,7 @@ img {
 
 footer {
   position: fixed;
-  color: lightgrey;
+  color: rgb(165, 165, 165);
   left: 0;
   bottom: 0;
   width: 100%;

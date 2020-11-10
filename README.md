@@ -1,9 +1,9 @@
 # Battle Snakes!
 Project One: Creating my game!
 
-![Preview1](https://i.imgur.com/e65eCiM.png)
+![Preview1](https://i.imgur.com/G0x7dUS.png)
 
-![Preview2](https://i.imgur.com/cSW9Ykz.png)
+![Preview2](https://i.imgur.com/tCRNtqM.png)
 
 # Table of Contents
 

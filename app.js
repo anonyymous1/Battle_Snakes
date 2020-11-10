@@ -1,4 +1,4 @@
-//------------------------------------------------------------GAME CANVAS STARTERS
+//---------------------------------------------------------------------GAME CANVAS STARTERS
 const game = document.querySelector('#game');
 const computedStyle = getComputedStyle(game);
 const ctx = game.getContext('2d');
@@ -54,18 +54,18 @@ class Snake {
     }   
 }
 
-//----------------------------------------------------------------CALLING FOR SNAKE & FOOD
+//--------------------------------------------------------------------CALLING FOR SNAKE & FOOD
 let apple = new Food(300, 300, 10, 10, 'red');
 
 let snakeP1 = new Snake(100, 100, 'darkgreen', 20, 20);
 snakeP1Array.push(snakeP1);
 snakeP1 = snakeP1Array[0];
 
-let snakeP2 = new Snake(400, 400, 'orange', 20, 20);
+let snakeP2 = new Snake(400, 400, 'purple', 20, 20);
 snakeP2Array.push(snakeP2);
 snakeP2 = snakeP2Array[0];
 
-//---------------------------------------------------------------MOVEMENT FOR PLAYERS
+//-------------------------------------------------------------------------MOVEMENT FOR PLAYERS
 //Player One
 document.addEventListener('keyup', function(evt){
     if (evt.key === "w") {
@@ -90,7 +90,7 @@ document.addEventListener('keyup', function(evt){
         playerRight(snakeP2Array);
     }
 })
-//---------------------------------------------------------------------------FUNCTIONS
+//--------------------------------------------------------------------------------FUNCTIONS
 
 function playerUp(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
@@ -193,7 +193,6 @@ function outOfBounds(player) {
         } 
         }
     }
-
     if (snakeP2Array.length > 1) {
         for (let i = 1; i < snakeP2Array.length; i++) {
         const snakeHead = snakeP2Array[0];
@@ -263,22 +262,22 @@ function addTailP1() {
 function addTailP2() {
     let snakeTail = snakeP2Array[snakeP2Array.length - 1];
     if (snakeP2.velX === 1){
-        let snakeBody = new Snake(snakeTail.x-20, snakeTail.y, 'tan', 20, 20);
+        let snakeBody = new Snake(snakeTail.x-20, snakeTail.y, 'lavender', 20, 20);
         snakeBody.velX = snakeTail.velX;
         snakeBody.velY = snakeTail.velY;
         snakeP2Array.push(snakeBody);
     } else if (snakeP2.velX === -1){
-        let snakeBody = new Snake(snakeTail.x + 20, snakeTail.y, 'tan', 20, 20);
+        let snakeBody = new Snake(snakeTail.x + 20, snakeTail.y, 'lavender', 20, 20);
         snakeBody.velX = snakeTail.velX;
         snakeBody.velY = snakeTail.velY;
         snakeP2Array.push(snakeBody);
     } else if (snakeP2.velY === 1){
-        let snakeBody = new Snake(snakeTail.x, snakeTail.y - 20, 'tan', 20, 20);
+        let snakeBody = new Snake(snakeTail.x, snakeTail.y - 20, 'lavender', 20, 20);
         snakeBody.velX = snakeTail.velX;
         snakeBody.velY = snakeTail.velY;
         snakeP2Array.push(snakeBody);
     } else if (snakeP2.velY === -1){
-        let snakeBody = new Snake(snakeTail.x, snakeTail.y  + 20, 'tan', 20, 20);
+        let snakeBody = new Snake(snakeTail.x, snakeTail.y  + 20, 'lavender', 20, 20);
         snakeBody.velX = snakeTail.velX;
         snakeBody.velY = snakeTail.velY;
         snakeP2Array.push(snakeBody);
@@ -338,11 +337,11 @@ function frames(){
     document.getElementById('score2').textContent = " " + score2;
     
     snakeP1.render();
-    snakeP2.render();
     outOfBounds(snakeP1)
-    outOfBounds(snakeP2)
-    apple.render();
     appleEaten(snakeP1);
+    apple.render();
+    snakeP2.render();
+    outOfBounds(snakeP2)
     appleEaten(snakeP2);
 }
 

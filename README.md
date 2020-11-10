@@ -17,6 +17,16 @@ Project One: Creating my game!
 
 I wanted to challenge myself a little and have fun styling it so i ended up making a Snake game where I make improvements in the future. Using the W, A, S, D keys you can move the snake Up, Down, Left and Right for Player one and Using the arrow keys for Player Two. Try to collect as many items as you can but be careful not to hit the walls or yourself. PLayer with the highest points wins.
 
+You can play the game by clicking [here](https://anonyymous1.github.io/) or doing the following:
+
+### Steps to install Battle Snakes to your computer:
+1. Go to [Repo](https://github.com/anonyymous1/Battle_Snakes).
+2. `Fork` page.
+3. `Clone` code.
+4. Open iTerm2 .
+5. Type - `git clone https://github.com/anonyymous1/Battle_Snakes` into iTerm2.
+6. Open `index.html` by typing `open index.html` in iTerm2.
+
 
 ## Challenges that came my way.
 

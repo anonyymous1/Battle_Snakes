@@ -172,7 +172,45 @@ footer {
   width: 100%;
 }
 ```
+Food and Snake Constructors
+```js
+function Food (x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.total = 1;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.alive = true;
+    this.render = function() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
 
+function newApple() {
+    random_x = Math.floor(Math.random() * (game.height - 15));
+    random_y = Math.floor(Math.random() * (game.width - 15));  
+}   
+
+class Snake {
+    constructor(x, y, color, width, height) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.width = width;
+        this.height = height;
+        this.velX = 0;
+        this.velY = 0;
+        this.render = function() {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height)   
+        }
+    }   
+}
+```
+
+PLAYER DIRECTION
 ```javascript
 function playerUp(snakeArray){
     for (let i = 0; i < snakeArray.length; i++) {
@@ -196,74 +234,58 @@ function playerUp(snakeArray){
         // console.log(`[${i}]:y ${snakeArray[i].y}`);
     }
 }
-
-function playerDown(snakeArray){
-    for (let i = 0; i < snakeArray.length; i++) {
-        let snakeBody = snakeArray[i];
-        if (snakeBody.velX === 0 && snakeBody.velY === -1) {
-            return;
-        } else {
-            snakeBody.y -= 1;
-            snakeBody.velX = 0;
-            snakeBody.velY = 1;
-            // console.log("Player Down");
-        }
+```
+When a player eats an apple:
+```JS
+function appleEaten(player) {
+    if (player === snakeP1 && player.x + player.width > apple.x &&
+        player.x < apple.x + apple.width &&
+        player.y + player.height > apple.y &&
+        player.y < apple.y + apple.height) { 
+        score1++;
+        apple.alive = false;
+        bit.play();
+        newApple(apple);
+        addTailP1();
+        apple = new Food(random_x, random_y, 10, 10, 'red');
+    } else if (player === snakeP2 && player.x + player.width > apple.x &&
+        player.x < apple.x + apple.width &&
+        player.y + player.height > apple.y &&
+        player.y < apple.y + apple.height) { 
+        score2++;
+        apple.alive = false;
+        bit.play();
+        newApple(apple);
+        addTailP2();
+        apple = new Food(random_x, random_y, 10, 10, 'red');
     }
-    
-    for (let i = (snakeArray.length - 1); i > 0; i--) {
-        snakeArray[i].x = snakeArray[i - 1].x;
-        snakeArray[i].y = snakeArray[i - 1].y;
-        snakeArray[i].y -= 20;
-        // console.log("-------Down---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);
-    }   
 } 
-
-function playerLeft(snakeArray){
-    for (let i = 0; i < snakeArray.length; i++) {
-        let snakeBody = snakeArray[i];
-       if (snakeBody.velX === 1 && snakeBody.velY === 0) {
-        return;
-        } else {
-        snakeBody.x -= 1;
-        snakeBody.velX = -1;
-        snakeBody.velY = 0;
-        // console.log("Player Left");
-        }
+```
+Adding more snake to players:
+```js
+function addTail() {
+    let snakeTail = snakeP1Array[snakeP1Array.length - 1];
+    if (snakeP1.velX === 1){
+        let snakeBody = new Snake(snakeTail.x-20, snakeTail.y, 'green', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP1Array.push(snakeBody);
+    } else if (snakeP1.velX === -1){
+        let snakeBody = new Snake(snakeTail.x + 20, snakeTail.y, 'green', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP1Array.push(snakeBody);
+    } else if (snakeP1.velY === 1){
+        let snakeBody = new Snake(snakeTail.x, snakeTail.y - 20, 'green', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP1Array.push(snakeBody);
+    } else if (snakeP1.velY === -1){
+        let snakeBody = new Snake(snakeTail.x, snakeTail.y  + 20, 'green', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP1Array.push(snakeBody);
     }
-    
-    for (let i = (snakeArray.length - 1); i > 0; i--) {
-        snakeArray[i].x = snakeArray[i - 1].x;
-        snakeArray[i].y = snakeArray[i - 1].y;
-        snakeArray[i].x += 20;
-        // console.log("-------Left---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);     
-    }
-}
-
-function playerRight(snakeArray){
-    for (let i = 0; i < snakeArray.length; i++) {
-        let snakeBody = snakeArray[i];
-        if (snakeBody.velX === -1 && snakeBody.velY === 0) {
-            return;
-        } else {
-        snakeBody.x += 1;
-        snakeBody.velX = 1;
-        snakeBody.velY = 0;
-        // console.log("Player Right");
-        }    
-    }
-    
-    for (let i = (snakeArray.length - 1); i > 0; i--) {
-        snakeArray[i].x = snakeArray[i - 1].x; 
-        snakeArray[i].y = snakeArray[i - 1].y;
-        snakeArray[i].x -= 20; 
-        // console.log("-------Right---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);    
-        }
 }
 ```
 

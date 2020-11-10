@@ -7,9 +7,9 @@ const width = computedStyle.width;
 game.height = parseInt(height); 
 game.width = parseInt(width);
 
-const snd = new Audio("../test_Battle_Snakes/img/melodyloops-preview.mp3");
-const bit = new Audio("../test_Battle_Snakes/img/Apple_Bite.mp3");
-const ded = new Audio("../test_Battle_Snakes/img/womp-womp.mp3");
+const snd = new Audio("../Battle_Snakes/img/melodyloops-preview.mp3");
+const bit = new Audio("../Battle_Snakes/img/Apple_Bite.mp3");
+const ded = new Audio("../Battle_Snakes/img/womp-womp.mp3");
 
 let score1 = 0;
 let score2 = 0;
@@ -34,8 +34,8 @@ function Food (x, y, width, height, color) {
 }
 
 function newApple() {
-    random_x = Math.floor(Math.random() * (game.height - 15)); //need to take the height number
-    random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number   
+    random_x = Math.floor(Math.random() * (game.height - 15));
+    random_y = Math.floor(Math.random() * (game.width - 15));  
 }   
 
 class Snake {

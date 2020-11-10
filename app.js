@@ -7,14 +7,15 @@ const width = computedStyle.width;
 game.height = parseInt(height); 
 game.width = parseInt(width);
 
-const snd = new Audio("../Battle_Snakes/img/melodyloops-preview.mp3");
-const bit = new Audio("../Battle_Snakes/img/Apple_Bite.mp3");
-const ded = new Audio("../Battle_Snakes/img/womp-womp.mp3");
+const snd = new Audio("../test_Battle_Snakes/img/melodyloops-preview.mp3");
+const bit = new Audio("../test_Battle_Snakes/img/Apple_Bite.mp3");
+const ded = new Audio("../test_Battle_Snakes/img/womp-womp.mp3");
 
-let score = 0;
+let score1 = 0;
+let score2 = 0;
 let fps = 120;
 let snakeP1Array = [];
-// let snakeP2Array = [];
+let snakeP2Array = [];
 
 //----------------------------------------------------------------SNAKE & FOOD CONSTRUCTORS
 
@@ -54,15 +55,15 @@ class Snake {
 }
 
 //----------------------------------------------------------------CALLING FOR SNAKE & FOOD
-let apple = new Food(390, 400, 10, 10, 'red');
+let apple = new Food(300, 300, 10, 10, 'red');
 
 let snakeP1 = new Snake(100, 100, 'darkgreen', 20, 20);
 snakeP1Array.push(snakeP1);
 snakeP1 = snakeP1Array[0];
 
-// let snakeP2 = new Snake(400, 400, 'brown', 20, 20);
-// snakeP2Array.push(snakeP2);
-// snakeP2 = snakeP2Array[0];
+let snakeP2 = new Snake(400, 400, 'orange', 20, 20);
+snakeP2Array.push(snakeP2);
+snakeP2 = snakeP2Array[0];
 
 //---------------------------------------------------------------MOVEMENT FOR PLAYERS
 //Player One
@@ -78,17 +79,17 @@ document.addEventListener('keyup', function(evt){
     }
 })
 
-// document.addEventListener('keyup', function(evt){
-//     if (evt.key === "ArrowUp") {
-//         playerUp(snakeP2Array); 
-//     } else if (evt.key === "ArrowLeft") {
-//         playerLeft(snakeP2Array);  
-//     } else if (evt.key === "ArrowDown") {
-//         playerDown(snakeP2Array);    
-//     } else if (evt.key === "ArrowRight") {
-//         playerRight(snakeP2Array);
-//     }
-// })
+document.addEventListener('keyup', function(evt){
+    if (evt.key === "ArrowUp") {
+        playerUp(snakeP2Array); 
+    } else if (evt.key === "ArrowLeft") {
+        playerLeft(snakeP2Array);  
+    } else if (evt.key === "ArrowDown") {
+        playerDown(snakeP2Array);    
+    } else if (evt.key === "ArrowRight") {
+        playerRight(snakeP2Array);
+    }
+})
 //---------------------------------------------------------------------------FUNCTIONS
 
 function playerUp(snakeArray){
@@ -100,17 +101,13 @@ function playerUp(snakeArray){
             snakeBody.y -= 1;
             snakeBody.velX = 0;
             snakeBody.velY = -1;
-            // console.log("Player Up");
         }
     }   
 
     for (let i = (snakeArray.length - 1); i > 0; i--) {
         snakeArray[i].x = snakeArray[i - 1].x;
         snakeArray[i].y = snakeArray[i - 1].y;
-        snakeArray[i].y += 20;            
-        // console.log("-------Up---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);
+        snakeArray[i].y += 20;
     }
 }
 
@@ -123,7 +120,6 @@ function playerDown(snakeArray){
             snakeBody.y -= 1;
             snakeBody.velX = 0;
             snakeBody.velY = 1;
-            // console.log("Player Down");
         }
     }
     
@@ -131,9 +127,6 @@ function playerDown(snakeArray){
         snakeArray[i].x = snakeArray[i - 1].x;
         snakeArray[i].y = snakeArray[i - 1].y;
         snakeArray[i].y -= 20;
-        // console.log("-------Down---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);
     }   
 } 
 
@@ -146,17 +139,13 @@ function playerLeft(snakeArray){
         snakeBody.x -= 1;
         snakeBody.velX = -1;
         snakeBody.velY = 0;
-        // console.log("Player Left");
         }
     }
     
     for (let i = (snakeArray.length - 1); i > 0; i--) {
         snakeArray[i].x = snakeArray[i - 1].x;
         snakeArray[i].y = snakeArray[i - 1].y;
-        snakeArray[i].x += 20;
-        // console.log("-------Left---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);     
+        snakeArray[i].x += 20;  
     }
 }
 
@@ -169,17 +158,13 @@ function playerRight(snakeArray){
         snakeBody.x += 1;
         snakeBody.velX = 1;
         snakeBody.velY = 0;
-        // console.log("Player Right");
         }    
     }
     
     for (let i = (snakeArray.length - 1); i > 0; i--) {
         snakeArray[i].x = snakeArray[i - 1].x; 
         snakeArray[i].y = snakeArray[i - 1].y;
-        snakeArray[i].x -= 20; 
-        // console.log("-------Right---------");
-        // console.log(`[${i}]:x ${snakeArray[i].x}`);
-        // console.log(`[${i}]:y ${snakeArray[i].y}`);    
+        snakeArray[i].x -= 20;   
         }
 }
 
@@ -195,37 +180,61 @@ function outOfBounds(player) {
         clearInterval(autoPlay);
     }
     if (snakeP1Array.length > 1) {
-    for (let i = 1; i < snakeP1Array.length; i++) {
+        for (let i = 1; i < snakeP1Array.length; i++) {
         const snakeHead = snakeP1Array[0];
         const snakeTail = snakeP1Array[i];
-        // console.log("SH",snakeHead);
-        // console.log("ST",snakeTail);
+        if (snakeHead.x === snakeTail.x && snakeHead.y === snakeTail.y){
+            const a = document.getElementById("lose");
+            a.style.display = "block";
+            a.textContent = 'PLAYER ONE TRIED TO EAT THEMSELVES'
+            snd.pause();
+            ded.play();
+            clearInterval(autoPlay);
+        } 
+        }
+    }
+
+    if (snakeP2Array.length > 1) {
+        for (let i = 1; i < snakeP2Array.length; i++) {
+        const snakeHead = snakeP2Array[0];
+        const snakeTail = snakeP2Array[i];
         if (snakeHead.x === snakeTail.x && snakeHead.y === snakeTail.y){
             console.log('LOSER');
             const a = document.getElementById("lose");
             a.style.display = "block";
+            a.textContent = 'PLAYER TWO TRIED TO EAT THEMSELVES'
             snd.pause();
             ded.play();
         } 
-    }
+        }
     }
 }
     
 function appleEaten(player) {
-    if (player.x + player.width > apple.x &&
+    if (player === snakeP1 && player.x + player.width > apple.x &&
         player.x < apple.x + apple.width &&
         player.y + player.height > apple.y &&
-        player.y < apple.y + apple.height ) { 
-        score++;
+        player.y < apple.y + apple.height) { 
+        score1++;
         apple.alive = false;
         bit.play();
-        addTail(player);
         newApple(apple);
+        addTailP1();
+        apple = new Food(random_x, random_y, 10, 10, 'red');
+    } else if (player === snakeP2 && player.x + player.width > apple.x &&
+        player.x < apple.x + apple.width &&
+        player.y + player.height > apple.y &&
+        player.y < apple.y + apple.height) { 
+        score2++;
+        apple.alive = false;
+        bit.play();
+        newApple(apple);
+        addTailP2();
         apple = new Food(random_x, random_y, 10, 10, 'red');
     }
 }  
 
-function addTail() {
+function addTailP1() {
     let snakeTail = snakeP1Array[snakeP1Array.length - 1];
     if (snakeP1.velX === 1){
         let snakeBody = new Snake(snakeTail.x-20, snakeTail.y, 'green', 20, 20);
@@ -248,7 +257,32 @@ function addTail() {
         snakeBody.velY = snakeTail.velY;
         snakeP1Array.push(snakeBody);
     }
-    console.log("snake", snakeP1Array);
+
+}
+
+function addTailP2() {
+    let snakeTail = snakeP2Array[snakeP2Array.length - 1];
+    if (snakeP2.velX === 1){
+        let snakeBody = new Snake(snakeTail.x-20, snakeTail.y, 'tan', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP2Array.push(snakeBody);
+    } else if (snakeP2.velX === -1){
+        let snakeBody = new Snake(snakeTail.x + 20, snakeTail.y, 'tan', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP2Array.push(snakeBody);
+    } else if (snakeP2.velY === 1){
+        let snakeBody = new Snake(snakeTail.x, snakeTail.y - 20, 'tan', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP2Array.push(snakeBody);
+    } else if (snakeP2.velY === -1){
+        let snakeBody = new Snake(snakeTail.x, snakeTail.y  + 20, 'tan', 20, 20);
+        snakeBody.velX = snakeTail.velX;
+        snakeBody.velY = snakeTail.velY;
+        snakeP2Array.push(snakeBody);
+    }
 
 }
 
@@ -262,14 +296,20 @@ function playGame() {
     c.style.display = "none";
     const d = document.getElementById("directions");
     d.style.display = "none";
-    const e = document.getElementById("scoreTitle");
+    const e = document.getElementById("scoreTitle1");
     e.style.display = "inline";
-    const f = document.getElementById("score");
+    e.style.marginRight = "5px";
+    const f = document.getElementById("scoreTitle2");
     f.style.display = "inline";
-    const g = document.getElementById("logo");
-    g.style.marginTop = "5px";
-    g.style.marginBottom = "10px";
-    g.style.width = "200px";
+    f.style.marginLeft = "60px";
+    const g = document.getElementById("score1");
+    g.style.display = "inline";
+    const h = document.getElementById("score2");
+    h.style.display = "inline";
+    const i = document.getElementById("logo");
+    i.style.marginTop = "5px";
+    i.style.marginBottom = "10px";
+    i.style.width = "200px";
 
 }
 
@@ -286,17 +326,24 @@ function frames(){
         snakeBody.x += snakeBody.velX;
         snakeBody.y += snakeBody.velY;
     }
+
+    for (let i = 0; i < snakeP2Array.length; i++) {
+        let snakeBody = snakeP2Array[i];
+        snakeBody.render();
+        snakeBody.x += snakeBody.velX;
+        snakeBody.y += snakeBody.velY;
+    }
     
-    document.getElementById('score').textContent = " " + score;
+    document.getElementById('score1').textContent = " " + score1;
+    document.getElementById('score2').textContent = " " + score2;
     
     snakeP1.render();
-    // snakeP2.render();
+    snakeP2.render();
     outOfBounds(snakeP1)
-    // outOfBounds(snakeP2)
+    outOfBounds(snakeP2)
     apple.render();
     appleEaten(snakeP1);
-    // appleEaten(snakeP2);
-    // updateBody();
+    appleEaten(snakeP2);
 }
 
 const autoPlay = document.addEventListener('DOMContentLoaded', function(){

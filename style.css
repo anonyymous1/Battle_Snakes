@@ -41,16 +41,16 @@ img {
   margin-bottom: 40px;
 }
 
-#container, #reset, #scoreTitle, #score, #lose{
+#container, #reset, #scoreTitle1, #scoreTitle2, #score1, #score2, #lose{
   display: none;
 }
 
 #lose {
   position: absolute;
   justify-content: center;
-  font-size: 40px;
+  font-size: 30px;
   color: red;
-  bottom: 50%;
+  bottom: 45%;
   z-index: 1;
   width: 100%;
 }
@@ -63,7 +63,7 @@ img {
   margin-top: 20px;
 }
 
-#scoreTitle, #score {
+#scoreTitle1, #scoreTitle2, #score1, #score2 {
   color: whitesmoke;
   
 }

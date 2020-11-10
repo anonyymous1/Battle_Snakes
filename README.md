@@ -1,9 +1,9 @@
 # Battle Snakes!
 Project One: Creating my game!
 
-![Preview1](https://i.imgur.com/G0x7dUS.png)
+![Preview1](https://i.imgur.com/ySAM1Hk.png)
 
-![Preview2](https://i.imgur.com/tCRNtqM.png)
+![Preview2](https://i.imgur.com/FX079Zp.png)
 
 # Table of Contents
 
@@ -15,7 +15,7 @@ Project One: Creating my game!
 
 ## About Battle Snakes & How to play
 
-I wanted to challenge myself a little and have fun styling it so i ended up making a Snake game where I make improvements in the future. Using the W, A, S, D keys you can move the snake Up, Down, Left and Right. Try to collect as many items as you can but be careful not to hit the walls or yourself. 
+I wanted to challenge myself a little and have fun styling it so i ended up making a Snake game where I make improvements in the future. Using the W, A, S, D keys you can move the snake Up, Down, Left and Right for Player one and Using the arrow keys for Player Two. Try to collect as many items as you can but be careful not to hit the walls or yourself. PLayer with the highest points wins.
 
 
 ## Challenges that came my way.
@@ -260,7 +260,7 @@ function playerRight(snakeArray){
 ### Things I want to add in the future
 
 My goal is to get the game at least working for one player. But in the future i plan on adding the following:
-- Add second player to make the Games Battle Snakes.
+- Add conditions for player to hit each other to make the Games Battle Snakes.
 - Give player choice of choosing color of snake.
 - Random items that have other effects like double growth or extra speed.
 - Increase speed with each item eaten.
